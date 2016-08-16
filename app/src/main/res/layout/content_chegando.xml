@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#E0F7FA"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="br.eti.c019.tochegando.ChegandoActivity"
+    tools:showIn="@layout/activity_chegando">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/listaFilhos"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_alignBottom="@+id/scrollView"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:id="@+id/chegando_bt_5min"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:backgroundTint="#B2EBF2"
+                    android:text="@string/sChegando_button_5min" />
+
+                <Button
+                    android:id="@+id/chegando_bt_10min"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:backgroundTint="#B2EBF2"
+                    android:text="@string/sChegando_button_10min" />
+
+                <Button
+                    android:id="@+id/chegando_bt_15min"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:backgroundTint="#B2EBF2"
+                    android:text="@string/sChegando_button_15min" />
+
+                <Button
+                    android:id="@+id/chegando_bt_20min"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:backgroundTint="#B2EBF2"
+                    android:text="@string/sChegando_button_20min" />
+
+            </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/listRegistro" />
+    </LinearLayout>
+
+</LinearLayout>

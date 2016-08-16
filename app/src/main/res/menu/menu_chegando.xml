@@ -1,0 +1,11 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="br.eti.c019.tochegando.ChegandoActivity">
+    <item
+        android:id="@+id/chegando_menu_sair"
+        android:orderInCategory="100"
+        android:title="@string/sChegando_menu_sair"
+        app:showAsAction="never" />
+</menu>

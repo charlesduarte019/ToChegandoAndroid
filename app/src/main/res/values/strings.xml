@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">To Chegando</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_chegando">To Chegando</string>
+
+    <string name="sMenu_configuracao">Configurações</string>
+    <string name="sMenu_acessibilidade">Acessibilidade</string>
+    <string name="sChegando_menu_sair">Sair</string>
+
+    <string name="sLogin_text_email">Email</string>
+    <string name="sLogin_password_senha">Senha</string>
+    <string name="sLogin_button_entrar">Login</string>
+
+    <string name="sChegando_button_5min">5 Minutos</string>
+    <string name="sChegando_button_10min">10 Minutos</string>
+    <string name="sChegando_button_15min">15 Minutos</string>
+    <string name="sChegando_button_20min">20 Minutos</string>
+
+    <string name="title_activity_splash_screen">SplashScreen</string>
+
+</resources>
