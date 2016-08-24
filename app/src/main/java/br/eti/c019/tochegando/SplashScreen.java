@@ -22,13 +22,13 @@ public class SplashScreen extends AppCompatActivity{
                         if (session.getLoggedIn()) {
                             Intent intent = new Intent();
                             intent.setClass(SplashScreen.this, ChegandoActivity.class);
-                            startActivity(intent);
                             finish();
+                            startActivity(intent);
                         } else {
                             Intent intent = new Intent();
                             intent.setClass(SplashScreen.this, LoginActivity.class);
-                            startActivity(intent);
                             finish();
+                            startActivity(intent);
                         }
 //                    }
 //

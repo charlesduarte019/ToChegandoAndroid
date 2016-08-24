@@ -11,7 +11,7 @@ public class Session {
 
     private SharedPreferences sp;
     private SharedPreferences.Editor spEditor;
-    private final String TAG_Login = "is_logged_in", TAG_Id = "is_idRespons_in";
+    private final String TAG_Login = "is_logged_in", TAG_Id = "is_idRespons_in", TAG_Acessibilidade = "is_acessibilidade_in";
 
     public Session(Context context) {
         sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -26,6 +26,17 @@ public class Session {
 
     public boolean getLoggedIn() {
         return sp.getBoolean(TAG_Login, false);
+    }
+
+    public boolean setAcessibilidade(boolean status) {
+        spEditor = sp.edit();
+        spEditor.putBoolean(TAG_Acessibilidade, status);
+        spEditor.commit();
+        return true;
+    }
+
+    public boolean getAcessibilidadeIn() {
+        return sp.getBoolean(TAG_Acessibilidade, false);
     }
 
     public boolean setID(Integer id){

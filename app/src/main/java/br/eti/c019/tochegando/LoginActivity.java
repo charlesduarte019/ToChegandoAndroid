@@ -38,6 +38,9 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
 //    private DataUser dataUser;
 
     private void onClickListener() {
+
+
+
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +83,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
                     session.setLogin(true);
                     session.setID(id);
                     intent = new Intent(LoginActivity.this, ChegandoActivity.class);
+                    finish();
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, String.valueOf(status), Toast.LENGTH_SHORT).show();
@@ -108,6 +112,8 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
         tvErroLogin = (TextView) findViewById(R.id.login_tv_erroLogin);
         etSenha = (EditText) findViewById(R.id.login_et_senha);
         btLogin = (Button) findViewById(R.id.login_bt_login);
+
+
 
         onClickListener();
 

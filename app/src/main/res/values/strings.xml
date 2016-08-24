@@ -9,9 +9,9 @@
 
     <string name="sLogin_text_email">Email</string>
     <string name="sLogin_password_senha">Senha</string>
-    <string name="sLogin_button_entrar">Login</string>
+    <string name="sLogin_button_entrar">Entrar</string>
 
-    <string name="sChegando_button_5min">5 Minutos</string>
+    <string name="sChegando_button_5min">05 Minutos</string>
     <string name="sChegando_button_10min">10 Minutos</string>
     <string name="sChegando_button_15min">15 Minutos</string>
     <string name="sChegando_button_20min">20 Minutos</string>

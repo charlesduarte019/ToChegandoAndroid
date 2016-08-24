@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import localStorage.DBManager;
 import localStorage.Session;
 import network.NetworkManager;
 import network.NetworkObserved;
@@ -37,9 +36,8 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
     private Spinner spinner;
     private ListView listView;
 
-    // Session e DBManager
+    // Session
     private Session session;
-    private DBManager dbManager;
 
     // Lista Filhos e Registro
     private HashMap<String, Integer> hashFilhos;
@@ -52,6 +50,7 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
     private NetworkManager networkManager;
     private static final String URL_TEMPO = "EnviarTempo.php";
     private static final String URL_BUSCA_FILHO = "BuscaFilhosResponsavel.php";
+    private static final String URL_LISTA_REGISTRO = "ListaRegistros.php";
     private Map<String, String> params;
 
     //Alert
@@ -109,7 +108,7 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
 
                         btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4DD0E1")));
 
-                        addRegistro(valueFilhos, valueTempo);
+                        listaRegistro();
 
                         dialog.dismiss();
 
@@ -126,33 +125,28 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
         alertDialog.show();
     }
 
-    private void addRegistro(String filho, String tempo) {
+    private void listaRegistro() {
 
-        dbManager.addFilhoRegistro(filho, tempo);
-        updateRegistro();
+        Thread t = new Thread() {
 
-    }
+            public void run() {
 
-    private void updateRegistro(){
-        arrayRegistro = dbManager.getAllItens();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayRegistro);
-        listView.setAdapter(adapter);
+                params.clear();
+                params.put("id", session.getIdResponIn().toString());
+                networkManager.post(params, URL_LISTA_REGISTRO);
+
+            }
+
+        };
+
+        t.start();
+
     }
 
     @Override
     public void doOnResponse(final String response) {
 
-        if (!response.contains("id")) {
-            try {
-                jsonObject = new JSONObject(response);
-
-                Toast.makeText(ChegandoActivity.this, jsonObject.getString("status"), Toast.LENGTH_LONG).show();
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        } else {
+        if (response.contains("id") && response.contains("nome")) { // Filhos
 
             try {
                 jsonArray = new JSONArray(response);
@@ -163,10 +157,44 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
                     arrayFilhos.add(jsonObject.getString("nome"));
                 }
 
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayFilhos);
-                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(dataAdapter);
+                if (!arrayFilhos.isEmpty()) {
 
+                    ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayFilhos);
+                    dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(dataAdapter);
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else if (response.contains("nome") && response.contains("tempo")) { // Registro
+
+            try {
+                jsonArray = new JSONArray(response);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    jsonObject = new JSONObject(jsonArray.getString(i));
+                    arrayRegistro.add(jsonObject.getString("nome"));
+                    arrayRegistro.add(jsonObject.getString("tempo"));
+                }
+
+                if (!arrayRegistro.isEmpty()) {
+                    ArrayAdapter<String> adapterRegistro = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, arrayRegistro);
+                    listView.setAdapter(adapterRegistro);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        } else if (response.contains("status")) { // Enviar
+
+            try {
+                jsonObject = new JSONObject(response);
+
+                Toast.makeText(ChegandoActivity.this, jsonObject.getString("status"), Toast.LENGTH_LONG).show();
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -179,30 +207,29 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chegando);
+        session = new Session(this);
+            setContentView(R.layout.activity_chegando);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         networkManager = new NetworkManager();
         networkManager.setNetworkObserved(this);
-        session = new Session(this);
         params = new HashMap<>();
 
-        dbManager = new DBManager(this);
-        listView = (ListView) findViewById(R.id.listRegistro);
         hashFilhos = new HashMap<>();
         arrayFilhos = new ArrayList<>();
-        arrayRegistro = null;
-        buscaFilhos();
-        updateRegistro();
+        arrayRegistro = new ArrayList<>();
 
         bt05min = (Button) findViewById(R.id.chegando_bt_5min);
         bt10min = (Button) findViewById(R.id.chegando_bt_10min);
         bt15min = (Button) findViewById(R.id.chegando_bt_15min);
         bt20min = (Button) findViewById(R.id.chegando_bt_20min);
         spinner = (Spinner) findViewById(R.id.listaFilhos);
+        listView = (ListView) findViewById(R.id.listRegistro);
         builder = new AlertDialog.Builder(this);
 
+        buscaFilhos();
+        listaRegistro();
         onCLickListener();
     }
 
@@ -243,14 +270,10 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
             return true;
         }
 
-        if (id == R.id.Menu_acessibilidade) {
-
-            return true;
-        }
-
         if (id == R.id.chegando_menu_sair) {
             session.setLogin(false);
             Intent intent = new Intent(ChegandoActivity.this, LoginActivity.class);
+            finish();
             startActivity(intent);
             return true;
         }
