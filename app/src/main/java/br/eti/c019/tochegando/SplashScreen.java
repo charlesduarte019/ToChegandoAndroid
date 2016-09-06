@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import localStorage.Session;
 
-public class SplashScreen extends AppCompatActivity{
+public class SplashScreen extends AppCompatActivity {
 
     private Session session;
 
@@ -15,10 +18,11 @@ public class SplashScreen extends AppCompatActivity{
         Thread t = new Thread() {
             public void run() {
 
-//                new Timer().schedule(new TimerTask() {
-//
-//                    @Override
-//                    public void run() {
+                new Timer().schedule(new TimerTask() {
+
+                    @Override
+                    public void run() {
+
                         if (session.getLoggedIn()) {
                             Intent intent = new Intent();
                             intent.setClass(SplashScreen.this, ChegandoActivity.class);
@@ -30,9 +34,10 @@ public class SplashScreen extends AppCompatActivity{
                             finish();
                             startActivity(intent);
                         }
-//                    }
-//
-//                }, 1000);
+
+                    }
+
+                }, 500);
             }
 
         };

@@ -5,6 +5,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#E0F7FA"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,132 +15,70 @@
     tools:showIn="@layout/activity_login">
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:orientation="vertical">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/login_tv_email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/sLogin_text_email"
-                            android:inputType="textEmailAddress"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <EditText
-                            android:id="@+id/login_et_senha"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/sLogin_password_senha"
-                            android:inputType="textPassword"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/login_bt_login"
+                    <AutoCompleteTextView
+                        android:id="@+id/login_tv_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
-                        android:layout_marginTop="30dp"
-                        android:background="#00BCD4"
-                        android:text="@string/sLogin_button_entrar"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp" />
+                        android:hint="@string/sLogin_text_email"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
-                    <TextView
-                        android:id="@+id/login_tv_erroLogin"
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/login_et_senha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20px"
-                        android:text=""
-                        android:textAlignment="center"
-                        android:textColor="@color/red"
-                        android:textSize="30px" />
+                        android:hint="@string/sLogin_password_senha"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:singleLine="true" />
 
-                </LinearLayout>
+                </android.support.design.widget.TextInputLayout>
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="bottom"
-                    android:gravity="bottom">
+                <Button
+                    android:id="@+id/login_bt_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#00BCD4"
+                    android:text="@string/sLogin_button_entrar"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Parceiros"
-                        android:id="@+id/textView4"
-                        android:textSize="30dp"
-                        android:layout_gravity="bottom|center_horizontal" />
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="bottom"
-                        android:layout_marginTop="10dp">
-
-                        <ImageView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView"
-                            android:src="@drawable/icon_nexti_logo"
-                            android:layout_weight="1"
-                            android:layout_marginRight="5dp" />
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="0.5dp"
-                            android:layout_height="match_parent"
-                            android:background="#858585"></LinearLayout>
-
-                        <ImageView
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/imageView2"
-                            android:src="@drawable/icon_fap_logo"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="5dp"
-                            android:layout_gravity="center_vertical" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/login_tv_erroLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20px"
+                    android:text=""
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    android:textSize="30px" />
 
             </LinearLayout>
-        </RelativeLayout>
+
     </ScrollView>
 
 </LinearLayout>

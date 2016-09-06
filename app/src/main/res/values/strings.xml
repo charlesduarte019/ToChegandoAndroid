@@ -4,6 +4,7 @@
     <string name="title_activity_chegando">To Chegando</string>
 
     <string name="sMenu_configuracao">Configurações</string>
+    <string name="sMenu_about">Sobre</string>
     <string name="sMenu_acessibilidade">Acessibilidade</string>
     <string name="sChegando_menu_sair">Sair</string>
 
@@ -17,5 +18,6 @@
     <string name="sChegando_button_20min">20 Minutos</string>
 
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_about">About</string>
 
 </resources>
