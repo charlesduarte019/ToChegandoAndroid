@@ -115,8 +115,6 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
         etSenha = (EditText) findViewById(R.id.login_et_senha);
         btLogin = (Button) findViewById(R.id.login_bt_login);
 
-
-
         onClickListener();
 
     }

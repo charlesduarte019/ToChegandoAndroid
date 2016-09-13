@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">To Chegando</string>
+    <string name="app_name">Tô Chegando</string>
     <string name="title_activity_login">Login</string>
-    <string name="title_activity_chegando">To Chegando</string>
+    <string name="title_activity_chegando">Tô Chegando</string>
 
     <string name="sMenu_configuracao">Configurações</string>
     <string name="sMenu_about">Sobre</string>
@@ -17,7 +17,7 @@
     <string name="sChegando_button_15min">15 Minutos</string>
     <string name="sChegando_button_20min">20 Minutos</string>
 
-    <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="title_activity_splash_screen">Tô Chegando</string>
     <string name="title_activity_about">About</string>
 
 </resources>

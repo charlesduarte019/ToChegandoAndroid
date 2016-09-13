@@ -32,7 +32,7 @@ import network.NetworkObserved;
 public class ChegandoActivity extends AppCompatActivity implements NetworkObserved {
 
     // Botões e Lista
-    private Button bt05min, bt10min, bt15min, bt20min;
+    private Button bt05min, bt10min, bt15min, bt20min, btAux;
     private Spinner spinner;
     private ListView listView;
 
@@ -50,7 +50,6 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
     private NetworkManager networkManager;
     private static final String URL_TEMPO = "EnviarTempo.php";
     private static final String URL_BUSCA_FILHO = "BuscaFilhosResponsavel.php";
-    private static final String URL_LISTA_REGISTRO = "ListaRegistros.php";
     private Map<String, String> params;
 
     //Alert
@@ -62,33 +61,37 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
         bt05min.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestTempo(String.valueOf(spinner.getSelectedItem()), "05", bt05min);
+                btAux = bt05min;
+                requestTempo(String.valueOf(spinner.getSelectedItem()), "05");
             }
         });
 
         bt10min.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestTempo(String.valueOf(spinner.getSelectedItem()), "10", bt10min);
+                btAux = bt10min;
+                requestTempo(String.valueOf(spinner.getSelectedItem()), "10");
             }
         });
 
         bt15min.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestTempo(String.valueOf(spinner.getSelectedItem()), "15", bt15min);
+                btAux = bt15min;
+                requestTempo(String.valueOf(spinner.getSelectedItem()), "15");
             }
         });
 
         bt20min.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestTempo(String.valueOf(spinner.getSelectedItem()), "20", bt20min);
+                btAux = bt20min;
+                requestTempo(String.valueOf(spinner.getSelectedItem()), "20");
             }
         });
     }
 
-    private void requestTempo(final String valueFilhos, final String valueTempo, final Button btn) {
+    private void requestTempo(final String valueFilhos, final String valueTempo) {
 
         builder.setMessage("Pegará seu filho(a) " + valueFilhos + " daqui à 00:" + valueTempo + ":00 minutos?").setCancelable(false)
                 .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
@@ -96,19 +99,10 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
                     public void onClick(DialogInterface dialog, int which) {
 
                         params.clear();
+                        params.put("tempo", valueTempo);
                         params.put("idResp", session.getIdResponIn().toString());
                         params.put("idAlun", String.valueOf(hashFilhos.get(valueFilhos)));
-                        params.put("tempo", valueTempo);
                         networkManager.post(params, URL_TEMPO);
-
-                        bt05min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-                        bt10min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-                        bt15min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-                        bt20min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-
-                        btn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4DD0E1")));
-
-                        listaRegistro();
 
                         dialog.dismiss();
 
@@ -123,24 +117,6 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
         alertDialog = builder.create();
         alertDialog.setTitle("Confirmar chegada");
         alertDialog.show();
-    }
-
-    private void listaRegistro() {
-
-        Thread t = new Thread() {
-
-            public void run() {
-
-                params.clear();
-                params.put("id", session.getIdResponIn().toString());
-                networkManager.post(params, URL_LISTA_REGISTRO);
-
-            }
-
-        };
-
-        t.start();
-
     }
 
     @Override
@@ -194,6 +170,14 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
             try {
                 jsonObject = new JSONObject(response);
 
+
+                bt05min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
+                bt10min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
+                bt15min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
+                bt20min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
+
+                btAux.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4DD0E1")));
+
                 Toast.makeText(ChegandoActivity.this, jsonObject.getString("status"), Toast.LENGTH_LONG).show();
 
             } catch (JSONException e) {
@@ -224,12 +208,12 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
         bt10min = (Button) findViewById(R.id.chegando_bt_10min);
         bt15min = (Button) findViewById(R.id.chegando_bt_15min);
         bt20min = (Button) findViewById(R.id.chegando_bt_20min);
+        btAux = new Button(this);
         spinner = (Spinner) findViewById(R.id.listaFilhos);
         listView = (ListView) findViewById(R.id.listRegistro);
         builder = new AlertDialog.Builder(this);
 
         buscaFilhos();
-        listaRegistro();
         onCLickListener();
     }
 
