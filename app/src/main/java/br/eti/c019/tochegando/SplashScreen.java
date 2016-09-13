@@ -16,7 +16,7 @@ public class SplashScreen extends AppCompatActivity {
     private void startVerificarLogin() {
 
         Thread t = new Thread() {
-            public void run() {
+                public void run() {
 
                 new Timer().schedule(new TimerTask() {
 
@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
 
                     }
 
-                }, 500);
+                }, 1000);
             }
 
         };

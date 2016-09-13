@@ -2,12 +2,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".SplashScreen"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:background="#E0F7FA">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView3"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
+        android:src="@drawable/logo_icon_nexti_full"
+        android:scaleType="centerInside"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom"
+        android:layout_weight="6">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:src="@drawable/logo_nome_nexti" />
+    </LinearLayout>
 </RelativeLayout>
