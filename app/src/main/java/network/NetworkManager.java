@@ -11,6 +11,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.Map;
 
+
 public class NetworkManager {
 
     private NetworkObserved networkObserved;
@@ -57,6 +58,7 @@ public class NetworkManager {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                networkObserved.onErrorResponse();
             }
         };
     }

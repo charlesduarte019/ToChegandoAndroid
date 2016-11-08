@@ -189,6 +189,11 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
     }
 
     @Override
+    public void onErrorResponse(){
+        Toast.makeText(ChegandoActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new Session(this);

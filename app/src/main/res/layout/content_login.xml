@@ -26,21 +26,22 @@
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/login_tv_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/sLogin_text_email"
                         android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                        android:maxLines="1"/>
 
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/text_input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -50,8 +51,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/sLogin_password_senha"
                         android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +62,7 @@
                     android:layout_marginLeft="3dp"
                     android:layout_marginRight="3dp"
                     android:layout_marginTop="30dp"
-                    android:background="#00BCD4"
+                    android:background="#079EE3"
                     android:text="@string/sLogin_button_entrar"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />

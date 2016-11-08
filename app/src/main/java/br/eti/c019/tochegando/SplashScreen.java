@@ -45,6 +45,8 @@ public class SplashScreen extends AppCompatActivity {
         t.start();
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +54,6 @@ public class SplashScreen extends AppCompatActivity {
         session = new Session(this);
 
         startVerificarLogin();
-
     }
 
 }

@@ -1,9 +1,11 @@
 package br.eti.c019.tochegando;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import java.util.Map;
 import localStorage.Session;
 import network.NetworkManager;
 import network.NetworkObserved;
+import network.VerifyConnection;
 
 public class LoginActivity extends AppCompatActivity implements NetworkObserved {
 
@@ -37,15 +40,13 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
 
     private JSONObject object;
 
-//    private DataUser dataUser;
-
     private void onClickListener() {
-
-
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                verificarConexao(LoginActivity.this);
+
                 String email = tvEmail.getText().toString();
                 String senha = etSenha.getText().toString();
 
@@ -87,14 +88,26 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
                     intent = new Intent(LoginActivity.this, ChegandoActivity.class);
                     finish();
                     startActivity(intent);
-                }else{
-                    Toast.makeText(LoginActivity.this, String.valueOf(status), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Erro na autenticação", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (JSONException e) {
+                Toast.makeText(LoginActivity.this, "Erro na autenticação", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    @Override
+    public void onErrorResponse(){
+        Toast.makeText(LoginActivity.this, "Erro na autenticação", Toast.LENGTH_SHORT).show();
+    }
+
+    private void verificarConexao(Context context) {
+        if (!VerifyConnection.verifyConnection(context)) {
+            Toast.makeText(LoginActivity.this, "Sem conexão com internet", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -115,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
         etSenha = (EditText) findViewById(R.id.login_et_senha);
         btLogin = (Button) findViewById(R.id.login_bt_login);
 
+        verificarConexao(this);
         onClickListener();
 
     }
@@ -134,11 +148,6 @@ public class LoginActivity extends AppCompatActivity implements NetworkObserved 
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.menu_about) {
-            Intent intent = new Intent(LoginActivity.this, About.class);
-            startActivity(intent);
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
