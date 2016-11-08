@@ -210,7 +210,6 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
         bt20min = (Button) findViewById(R.id.chegando_bt_20min);
         btAux = new Button(this);
         spinner = (Spinner) findViewById(R.id.listaFilhos);
-        listView = (ListView) findViewById(R.id.listRegistro);
         builder = new AlertDialog.Builder(this);
 
         buscaFilhos();
