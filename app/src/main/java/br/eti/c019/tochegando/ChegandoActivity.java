@@ -1,6 +1,7 @@
 package br.eti.c019.tochegando;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -28,6 +29,7 @@ import java.util.Map;
 import localStorage.Session;
 import network.NetworkManager;
 import network.NetworkObserved;
+import network.VerifyConnection;
 
 public class ChegandoActivity extends AppCompatActivity implements NetworkObserved {
 
@@ -93,30 +95,35 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
 
     private void requestTempo(final String valueFilhos, final String valueTempo) {
 
-        builder.setMessage("Pegará seu filho(a) " + valueFilhos + " daqui à 00:" + valueTempo + ":00 minutos?").setCancelable(false)
-                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        if(VerifyConnection.verifyConnection(ChegandoActivity.this)){
+            builder.setMessage("Pegará seu filho(a) " + valueFilhos + " daqui à 00:" + valueTempo + ":00 minutos?").setCancelable(false)
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
 
-                        params.clear();
-                        params.put("tempo", valueTempo);
-                        params.put("idResp", session.getIdResponIn().toString());
-                        params.put("idAlun", String.valueOf(hashFilhos.get(valueFilhos)));
-                        networkManager.post(params, URL_TEMPO);
+                            params.clear();
+                            params.put("tempo", valueTempo);
+                            params.put("idResp", session.getIdResponIn().toString());
+                            params.put("idAlun", String.valueOf(hashFilhos.get(valueFilhos)));
+                            networkManager.post(params, URL_TEMPO);
 
-                        dialog.dismiss();
+                            dialog.dismiss();
 
-                    }
-                }).setNegativeButton("Não", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+                        }
+                    }).setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
 
-        alertDialog = builder.create();
-        alertDialog.setTitle("Confirmar chegada");
-        alertDialog.show();
+            alertDialog = builder.create();
+            alertDialog.setTitle("Confirmar chegada");
+            alertDialog.show();
+        }else{
+            Toast.makeText(ChegandoActivity.this, "Sem conexão com internet", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     @Override
@@ -171,10 +178,10 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
                 jsonObject = new JSONObject(response);
 
 
-                bt05min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-                bt10min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-                bt15min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
-                bt20min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#B2EBF2")));
+                bt05min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#079EE3")));
+                bt10min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#079EE3")));
+                bt15min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#079EE3")));
+                bt20min.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#079EE3")));
 
                 btAux.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4DD0E1")));
 
@@ -189,15 +196,21 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
     }
 
     @Override
-    public void onErrorResponse(){
+    public void onErrorResponse() {
         Toast.makeText(ChegandoActivity.this, "Erro", Toast.LENGTH_SHORT).show();
+    }
+
+    private void verificarConexao(Context context) {
+        if (!VerifyConnection.verifyConnection(context)) {
+            Toast.makeText(ChegandoActivity.this, "Sem conexão com internet", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         session = new Session(this);
-            setContentView(R.layout.activity_chegando);
+        setContentView(R.layout.activity_chegando);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -217,6 +230,7 @@ public class ChegandoActivity extends AppCompatActivity implements NetworkObserv
         spinner = (Spinner) findViewById(R.id.listaFilhos);
         builder = new AlertDialog.Builder(this);
 
+        verificarConexao(this);
         buscaFilhos();
         onCLickListener();
     }

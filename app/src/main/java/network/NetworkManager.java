@@ -18,7 +18,8 @@ public class NetworkManager {
 
 //    private static final String IP = "http://10.11.32.208/ToChegando/ComuJson/"; // WiFi Fap Charles
 //    private static final String IP = "http://192.168.0.119:4000/ToChegando/ComuJson/"; // Wifi Casa Charles
-    private static final String IP = "http://192.168.74.71:4000/ToChegando/ComuJson/"; // Wifi NExTI Charles
+    private static final String IP = "http://192.168.43.140:4000/ToChegando/ComuJson/"; // Wifi Samsung Cel Charles
+//    private static final String IP = "http://192.168.74.71:4000/ToChegando/ComuJson/"; // Wifi NExTI Charle
 //    private static final String IP = "http://192.168.74.61:80/ToChegando/ComuJson/"; // WiFi NExTI J.Lucas
 
     public void setNetworkObserved(NetworkObserved networkObserved) {
